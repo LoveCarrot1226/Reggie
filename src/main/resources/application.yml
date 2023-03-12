@@ -13,6 +13,9 @@ spring:
         max-wait: 1ms
         max-idle: 4
         min-idle: 0
+  cache:
+    redis:
+      time-to-live: 1800000 #1800s=30min 缓存过期时间
   mail:
     host: smtp.qq.com
     #发送验证码的邮箱

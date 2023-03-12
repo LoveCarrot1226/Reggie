@@ -3,10 +3,7 @@ package com.example.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.common.Result;
-import com.example.domain.Category;
-import com.example.domain.Dish;
-import com.example.domain.DishFlavor;
-import com.example.domain.Employee;
+import com.example.domain.*;
 import com.example.dto.DishDto;
 import com.example.service.CategoryService;
 import com.example.service.DishFlavorService;
@@ -146,6 +143,14 @@ public class DishController {
         redisTemplate.opsForValue().set(key,dishDtoList,60, TimeUnit.MINUTES);
 
         return Result.success(dishDtoList);
+    }
+
+    @PostMapping("/status/{status}")
+    public Result<String> sealOrNot(@PathVariable int status,Long ids){
+        Dish dish= dishService.getById(ids);
+        dish.setStatus(status);
+        dishService.updateById(dish);
+        return Result.success("更改售卖状态成功");
     }
 
 
